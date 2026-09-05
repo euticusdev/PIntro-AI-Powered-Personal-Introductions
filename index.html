@@ -1,109 +1,107 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIntro - AI Powered Personal Introductions</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="https://i.ibb.co/tT3RMyHw/favicon.png">
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIntro - AI Powered Personal Introductions</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="https://i.ibb.co/tT3RMyHw/favicon.png">
+</head>
 <body>
   <div class="container">
-
-    <div class="navbar">
-     <div class="logo">PIntro</div>
+    <nav class="navbar">
+      <div class="logo">PIntro</div>
       <div class="nav-links">
         <a href="#features">Features</a>
-       <a href="#testimonials">Reviews</a>
-       <a href="#pricing">Pricing</a>
-       <a href="#" id="getStartedBtn" class="cta">Get Started</a>
-    </div>
-    </div>
-    <div class="hero">
-      <h1>Welcome to PIntro</h1>
-      <p>Your personal introduction generator.</p>
-      <a href="#" id="getStartedBtn" class="cta">Get Started</a>
-    </div>
+        <a href="#testimonials">Reviews</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#" class="cta get-started">Get Started</a>
+      </div>
+    </nav>
 
+    <section class="hero">
+      <h1>Welcome to PIntro</h1>
+      <p>Your personal introduction generator powered by AI.</p>
+      <a href="#" class="cta get-started">Get Started</a>
+    </section>
   </div>
+
   <section id="features">
     <h2>Features</h2>
     <div class="features-container">
-    <div class="features-box">
-      <h1>⚡AI-powered</h1>
-      <p>Generate compelling introductions with the help of artificial intelligence.</p>
-      </div>
-
       <div class="features-box">
-      <h1>🎨Customizable templates</h1>
-      <p>Choose from a variety of professionally designed templates.</p>
+        <h3>⚡ AI-powered</h3>
+        <p>Generate compelling introductions with the help of artificial intelligence.</p>
       </div>
-
       <div class="features-box">
-      <h1>🌍Multi-language support</h1>
-      <p>create intros in multiple languages.</p>
+        <h3>🎨 Customizable templates</h3>
+        <p>Choose from a variety of professionally designed styles.</p>
       </div>
+      <div class="features-box">
+        <h3>🌍 Multi-language support</h3>
+        <p>Create intros in multiple languages.</p>
       </div>
-      <button id="launchBot" class="cta">Create Your Intro</button>
+    </div>
+    <button id="launchBot" class="cta">Create Your Intro</button>
   </section>
+
   <section id="testimonials">
     <h2>Reviews</h2>
     <div class="testimonials-container">
       <div class="testimonial-card">
-        <p>"PIntro has revolutionized how I create introductions!" </p>
-        <span>- Jane D.</span>
+        <p>"PIntro has revolutionized how I create introductions!"</p>
+        <span>— Jane D.</span>
       </div>
       <div class="testimonial-card">
-        <p>"A must-have tool for professionals." - John S.</p>
-        <span>- John S.</span>
+        <p>"A must-have tool for professionals."</p>
+        <span>— John S.</span>
       </div>
     </div>
   </section>
+
   <section id="pricing">
     <h2>Pricing</h2>
     <div class="pricing-container">
       <div class="pricing-card">
-        <h1>Basic</h1>
+        <h3>Basic</h3>
         <p>Free</p>
       </div>
       <div class="pricing-card">
-        <h1>Pro</h1>
+        <h3>Pro</h3>
         <p>$9.99/month</p>
       </div>
       <div class="pricing-card">
-        <h1>Enterprise</h1>
-        <p>Contact us for pricing</p>
+        <h3>Enterprise</h3>
+        <p>Contact us</p>
       </div>
     </div>
-    <p>Basic: Free</p>
-    <p>Pro: $9.99/month</p>
-    <p>Enterprise: Contact us for pricing</p>
   </section>
+
   <!-- Intro Generator Modal -->
-<div id="introModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Create Your Intro</h2>
-    <form id="introForm">
-      <label for="name">Your Name:</label>
-      <input type="text" id="name" required>
+  <div id="introModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create Your Intro</h2>
+      <form id="introForm">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="e.g. Alex Rivera" required>
 
-      <label for="role">Your Role/Profession:</label>
-      <input type="text" id="role" required>
+        <label for="role">Your Role / Profession</label>
+        <input type="text" id="role" placeholder="e.g. Product Designer" required>
 
-      <label for="style">Style:</label>
-      <select id="style">
-        <option value="professional">Professional</option>
-        <option value="casual">Casual</option>
-        <option value="creative">Creative</option>
-      </select>
+        <label for="style">Style</label>
+        <select id="style">
+          <option value="professional">Professional</option>
+          <option value="casual">Casual</option>
+          <option value="creative">Creative</option>
+        </select>
 
-      <button type="submit" class="cta">Generate Intro</button>
-    </form>
-    <div id="introOutput"></div>
+        <button type="submit" class="cta" id="generateBtn">Generate Intro</button>
+      </form>
+      <div id="introOutput"></div>
+    </div>
   </div>
-</div>
-<script src="script.js"></script>
 
+  <script src="script.js"></script>
 </body>
-  </html>
+</html>

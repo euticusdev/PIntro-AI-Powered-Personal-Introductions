@@ -1,60 +1,84 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const getStartedBtn = document.getElementById("getStartedBtn");
-  const launchBotBtn = document.getElementById("launchBot");
-
-  // Scroll to features when "Get Started" is clicked
-  getStartedBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    document.getElementById("features").scrollIntoView({ behavior: "smooth" });
-  });
-
-  // Launch intro generator (placeholder for now)
-  launchBotBtn.addEventListener("click", () => {
-    alert("🚀 Intro generator coming soon!");
-    // Later: open a modal or chatbot UI here
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const launchBotBtn = document.getElementById("launchBot");
   const modal = document.getElementById("introModal");
   const closeBtn = document.querySelector(".close");
   const introForm = document.getElementById("introForm");
   const introOutput = document.getElementById("introOutput");
+  const generateBtn = document.getElementById("generateBtn");
+  const launchBotBtn = document.getElementById("launchBot");
+  const getStartedBtns = document.querySelectorAll(".get-started");
 
   // Open modal
-  launchBotBtn.addEventListener("click", () => {
+  function openModal(e) {
+    e.preventDefault();
     modal.style.display = "block";
-  });
+    document.body.style.overflow = "hidden";
+  }
+
+  getStartedBtns.forEach(btn => btn.addEventListener("click", openModal));
+  if (launchBotBtn) launchBotBtn.addEventListener("click", openModal);
 
   // Close modal
-  closeBtn.addEventListener("click", () => {
+  function closeModal() {
     modal.style.display = "none";
-  });
+    document.body.style.overflow = "";
+  }
 
-  // Close when clicking outside
+  closeBtn.addEventListener("click", closeModal);
   window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
+    if (e.target === modal) closeModal();
   });
 
-  // Handle form submission
-  introForm.addEventListener("submit", (e) => {
+  // Form submit
+  introForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const name = document.getElementById("name").value;
-    const role = document.getElementById("role").value;
+
+    const name = document.getElementById("name").value.trim();
+    const role = document.getElementById("role").value.trim();
     const style = document.getElementById("style").value;
 
-    let intro = "";
+    // Show loading
+    introOutput.style.display = "block";
+    introOutput.classList.add("show", "loading");
+    introOutput.innerHTML = "Generating your introduction with AI…";
+    generateBtn.disabled = true;
+    generateBtn.textContent = "Generating…";
 
-    if (style === "professional") {
-      intro = `Hello, my name is ${name}, and I am a dedicated ${role}. I specialize in delivering results with professionalism and expertise.`;
-    } else if (style === "casual") {
-      intro = `Hey! I’m ${name}, a ${role} who loves connecting with people and making things happen.`;
-    } else {
-      intro = `Hi, I’m ${name}, a ${role} with a passion for creativity and innovation. Let’s make something amazing together!`;
+    try {
+      const response = await fetch("http://localhost:3000/api/generate-intro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, role, style }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to generate intro");
+      }
+
+      // Show the result clearly
+      introOutput.classList.remove("loading");
+      introOutput.innerHTML = `
+        <strong>Your Introduction:</strong><br><br>
+        ${data.intro}
+      `;
+      introOutput.style.display = "block";
+
+      console.log("Generated intro:", data.intro); // for debugging
+    } catch (err) {
+      console.error(err);
+     introOutput.classList.remove("loading");
+introOutput.innerHTML = `
+  <strong>Your Introduction:</strong><br><br>
+  <div style="margin-top: 8px;">${data.intro}</div>
+`;
+introOutput.style.display = "block";
+introOutput.classList.add("show");
+    } finally {
+      generateBtn.disabled = false;
+      generateBtn.textContent = "Generate Intro";
     }
-
-    introOutput.innerHTML = `<p>${intro}</p>`;
   });
 });
